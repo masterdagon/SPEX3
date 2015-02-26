@@ -19,13 +19,13 @@ and open the template in the editor.
             function makeFootballPlayer() {
 
                 var request = $.ajax({
-                    url: "api/Player/" + $("#getid").val(),
+                    url: "api/text/Player/" + $("#getid").val(),
                     dataType: "json"
                 });
 
                 request.done(function (player) {
                     //$("#log").html(msg);
-                    $("#id").append(player.id);
+                    $("#playerid").append(player.id);
                     $("#name").append(player.name);
                     $("#country").append(player.country);
 
@@ -43,32 +43,27 @@ and open the template in the editor.
         <div>Find a player</div>
         <input id = "getid" type="text" name="playerid" value="1"/>
         <button id = "#btn1"> Knap </button>
-<!--        <form id="form" method ="post" >
-            <input type="text" name="playerid"/>
-            <button id = "#btn1"> Knap </button>
-            <input id = type= "#btn1""submit" value="Submit">
-        </form>-->
 
         <div><p id = "player"> This is where player should have appeared</p></div>
-        <p id="id"></p>
+        <p id="playerid"></p>
         <p id ="name"></p>
         <p id="country"></p>
 
         <script>
 
-            function getContent() {
-//                var input = document.getElementById('userInput').value;
-//                alert(input);
-                url = "api/text/Player/" + 1;
-                $.ajax(url,
-                        {success: setContent, type: "GET", dataType: "text"})
-            }
-
-            function setContent(data, status, jqxhr) {
-                var obj = JSON.parse(data);
-                $("#player").text(obj.name);
-            }
-            getContent();
+//            function getContent() {
+////                var input = document.getElementById('userInput').value;
+////                alert(input);
+//                url = "api/text/Player/" + 1;
+//                $.ajax(url,
+//                        {success: setContent, type: "GET", dataType: "text"})
+//            }
+//
+//            function setContent(data, status, jqxhr) {
+//                var obj = JSON.parse(data);
+//                $("#player").text(obj.name);
+//            }
+////            getContent();
         </script>
     </body>
 </html>

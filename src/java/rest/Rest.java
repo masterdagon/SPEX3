@@ -48,15 +48,15 @@ public class Rest {
 //            list.add("Neverland");
 //            map.put(i+1, list);
             
-            Player player = new Player("James Rodriguez","Neverland");
+            Player player = new Player("1","James Rodriguez","Neverland");
             map.put(1, player);
-            player = new Player("Thomas Mueller", "Neverland");
+            player = new Player("2","Thomas Mueller", "Neverland");
             map.put(2, player);
-            player = new Player("Messi", "Neverland");
+            player = new Player("3","Messi", "Neverland");
             map.put(3, player);
-            player = new Player("Neymar", "Neverland");
+            player = new Player("4","Neymar", "Neverland");
             map.put(4, player);
-            player = new Player("van Persie", "Neverland");
+            player = new Player("5","van Persie", "Neverland");
             map.put(5, player);
         }
 
