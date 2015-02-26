@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <script src="jquery-1.11.2.js"></script>
+        <script>
+            $(document).ready(function () {
+
+                $("#btn1").click(makeFootballPlayer())
+
+            });
+
+
+            function makeFootballPlayer() {
+
+                var request = $.ajax({
+                    url: "api/Player/" + $("#getid").val(),
+                    dataType: "json"
+                });
+
+                request.done(function (player) {
+                    //$("#log").html(msg);
+                    $("#id").append(player.id);
+                    $("#name").append(player.name);
+                    $("#country").append(player.country);
+
+                });
+                request.fail(function (jqXHR, textStatus) {
+                    alert("Request failed: " + textStatus);
+                });
+
+            }
+        </script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>Find a player</div>
+        <input id = "getid" type="text" name="playerid" value="1"/>
+        <button id = "#btn1"> Knap </button>
+<!--        <form id="form" method ="post" >
+            <input type="text" name="playerid"/>
+            <button id = "#btn1"> Knap </button>
+            <input id = type= "#btn1""submit" value="Submit">
+        </form>-->
+
+        <div><p id = "player"> This is where player should have appeared</p></div>
+        <p id="id"></p>
+        <p id ="name"></p>
+        <p id="country"></p>
+
+        <script>
+
+            function getContent() {
+//                var input = document.getElementById('userInput').value;
+//                alert(input);
+                url = "api/text/Player/" + 1;
+                $.ajax(url,
+                        {success: setContent, type: "GET", dataType: "text"})
+            }
+
+            function setContent(data, status, jqxhr) {
+                var obj = JSON.parse(data);
+                $("#player").text(obj.name);
+            }
+            getContent();
+        </script>
+    </body>
+</html>
