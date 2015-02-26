@@ -11,10 +11,12 @@ package rest;
  */
 public class Player {
     
+    String id;
     String name;
     String country;
     
-    public Player(String name, String country){
+    public Player(String id, String name, String country){
+        this.id = id;
         this.name = name;
         this.country = country;
     }
