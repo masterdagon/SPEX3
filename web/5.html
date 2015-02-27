@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <script src="jquery-1.11.2.js"></script>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <script src ="js/respond.js"></script>
+        <script>
+            var save;
+            $(document).ready(function () {
+
+                $("#showAll").click(showAllPlayers);
+                $("#showName").click(showPlayer);
+                $("#showCountry").click(showCountry);
+
+
+            });
+            function showAllPlayers() {
+                var request = $.ajax({
+                    url: "api/text/Pool",
+                    dataType: "json"
+                });
+                request.done(function (player) {
+                    save = player;
+                    console.log("Show all Players: save length: " + save.length);
+                    for (var i = 0; i < player.length; i++) {
+                        console.log(player.length);
+                        $("#table").append("<tr>");
+                        $("#table").append("<td>" + player[i].iId + "</td>");
+                        $("#table").append("<td>" + player[i].sName + "</td>");
+                        $("#table").append("<td>" + player[i].sCountryName + "</td>");
+                        $("#table").append("<td> <img src = " + player[i].sCountryFlag + " alt=\"flag\"></td>");
+                        $("#table").append("<td> <img src = " + player[i].sCountryFlagLarge + " alt=\"flag large\"></td>");
+                        $("#table").append("</tr>");
+                    }
+                });
+                request.fail(function (jqXHR, textStatus) {
+                    alert("Request failed: " + textStatus);
+                    $("#playerid").text("ID: Not found");
+                    $("#name").text("Name: Not found");
+                    $("#country").text("Country: Not found");
+                });
+
+            }
+            ;
+            function showPlayer() {
+                var player = save;
+                $("#table").text("");
+                for (var i = 0; i < player.length; i++) {
+                    console.log("showPlayer: save length: " + save.length);
+                    if ($("#playerName").val().toLowerCase() === player[i].sName.toLowerCase()) {
+                        $("#table").append("<tr>");
+                        $("#table").append("<td>" + player[i].iId + "</td>");
+                        $("#table").append("<td>" + player[i].sName + "</td>");
+                        $("#table").append("<td>" + player[i].sCountryName + "</td>");
+                        $("#table").append("<td> <img src = " + player[i].sCountryFlag + " alt=\"flag\"></td>");
+                        $("#table").append("<td> <img src = " + player[i].sCountryFlagLarge + " alt=\"flag large\"></td>");
+                        $("#table").append("</tr>");
+                    }
+                }
+            }
+            ;
+            function showCountry() {
+                var player = save;
+                $("#table").text("");
+                for (var i = 0; i < player.length; i++) {
+                    console.log("showCountry: save length: " + save.length);
+                    if ($("#countryName").val().toLowerCase() === save[i].sCountryName.toLowerCase()) {
+                        $("#table").append("<tr>");
+                        $("#table").append("<td>" + player[i].iId + "</td>");
+                        $("#table").append("<td>" + player[i].sName + "</td>");
+                        $("#table").append("<td>" + player[i].sCountryName + "</td>");
+                        $("#table").append("<td> <img src = " + player[i].sCountryFlag + " alt=\"flag\"></td>");
+                        $("#table").append("<td> <img src = " + player[i].sCountryFlagLarge + " alt=\"flag large\"></td>");
+                        $("#table").append("</tr>");
+                    }
+                }
+            }
+            ;
+        </script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div><button id ="showAll">Vis alle Spillere</button></div>
+        <div><input id="playerName" type="text"> <button id = "showName">Find efter navn</button></div>
+        <div><input id="countryName" type="text"> <button id = "showCountry">Find efter land</button></div>
+        <table style="width:100%" border="1" >
+            <thead>
+            <th class = "col-lg-2">ID</th>
+            <th class = "col-lg-2">Name</th>
+            <th class = "col-lg-2">Country</th>
+            <th class = "col-lg-3">Flag</th>
+            <th class = "col-lg-3">Flag-Large</th>
+        </thead>
+        <tbody id="table">
+
+        </tbody>
+    </table>
+
+
+</body>
+</html>
