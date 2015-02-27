@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <script src="jquery-1.11.2.js"></script>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <script src ="js/respond.js"></script>
+        <script>
+            function makeFootballPlayer() {
+                console.log("Hey hey")
+                var request = $.ajax({
+                    url: "api/text/AllPlayerNames",
+                    dataType: "json"
+                });
+                request.done(function (player) {
+                    //$("#log").html(msg);
+
+//                    $("#table").append("<tr>");
+//                    $("#table").append("<th>ID</th>");
+//                    $("#table").append("<th>NAME</th>");
+//                    $("#table").append("<th>COUNTRY</th>");
+//                    $("#table").append("</tr>");
+//                    console.log(player.length);
+                    for (var i = 0; i < player.length; i++) {
+                        console.log(player.length);
+                        $("#table").append("<tr>");
+                        $("#table").append("<td>" + player[i].id + "</td>");
+                        $("#table").append("<td>" + player[i].name + "</td>");
+                        $("#table").append("<td>" + player[i].country + "</td>");
+                        $("#table").append("</tr>");
+                    }
+                });
+                request.fail(function (jqXHR, textStatus) {
+                    alert("Request failed: " + textStatus);
+                    $("#playerid").text("ID: Not found");
+                    $("#name").text("Name: Not found");
+                    $("#country").text("Country: Not found");
+                });
+
+            }
+            ;
+            makeFootballPlayer();
+        </script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>Find a player by id:</div>
+        <table style="width:100%" border="1" >
+            <thead>
+            <th class = "col-lg-4">ID</th>
+            <th class = "col-lg-4">Name</th>
+            <th class = "col-lg-4">Country</th>
+        </thead>
+        <tbody id="table">
+
+        </tbody>
+    </table>
+
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <script src="jquery-1.11.2.js"></script>
+        <script>
+            $(document).ready(function () {
+
+                $("#btn1").click(makeFootballPlayer);
+
+            });
+
+
+            function makeFootballPlayer() {
+
+                var request = $.ajax({
+                    url: "api/text/Player/" + $("#getid").val(),
+                    dataType: "json"
+                });
+
+                request.done(function (player) {
+                    //$("#log").html(msg);
+                    $("#playerid").text("Player ID: " + player.id);
+                    $("#name").text("Name: " + player.name);
+                    $("#country").text("Country: " + player.country);
+
+                });
+                request.fail(function (jqXHR, textStatus) {
+                    alert("Request failed: " + textStatus);
+                    $("#playerid").text("ID: Not found");
+                    $("#name").text("Name: Not found");
+                    $("#country").text("Country: Not found");
+                });
+
+            }
+        </script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>Find a player by id:</div>
+        <input id = "getid" type="text" name="playerid" value="1"/>
+        <button id = "btn1"> Knap </button>
+
+<!--        <div><p id = "player"> This is where player should have appeared</p></div>-->
+        <p id="playerid"></p>
+        <p id ="name"></p>
+        <p id="country"></p>
+    </body>
+</html>

@@ -7,63 +7,13 @@ and open the template in the editor.
 <html>
     <head>
         <title>TODO supply a title</title>
-        <script src="jquery-1.11.2.js"></script>
-        <script>
-            $(document).ready(function () {
-
-                $("#btn1").click(makeFootballPlayer())
-
-            });
-
-
-            function makeFootballPlayer() {
-
-                var request = $.ajax({
-                    url: "api/text/Player/" + $("#getid").val(),
-                    dataType: "json"
-                });
-
-                request.done(function (player) {
-                    //$("#log").html(msg);
-                    $("#playerid").append(player.id);
-                    $("#name").append(player.name);
-                    $("#country").append(player.country);
-
-                });
-                request.fail(function (jqXHR, textStatus) {
-                    alert("Request failed: " + textStatus);
-                });
-
-            }
-        </script>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div>Find a player</div>
-        <input id = "getid" type="text" name="playerid" value="1"/>
-        <button id = "#btn1"> Knap </button>
-
-        <div><p id = "player"> This is where player should have appeared</p></div>
-        <p id="playerid"></p>
-        <p id ="name"></p>
-        <p id="country"></p>
-
-        <script>
-
-//            function getContent() {
-////                var input = document.getElementById('userInput').value;
-////                alert(input);
-//                url = "api/text/Player/" + 1;
-//                $.ajax(url,
-//                        {success: setContent, type: "GET", dataType: "text"})
-//            }
-//
-//            function setContent(data, status, jqxhr) {
-//                var obj = JSON.parse(data);
-//                $("#player").text(obj.name);
-//            }
-////            getContent();
-        </script>
+        <div>Assigments SPEX3</div>
+        <a href ="3.html">Assignment 3</a>
+        <a href = "4.html">Assignment 4</a>
+        <a href ="5.html"> Assignment 5 </a>
     </body>
 </html>

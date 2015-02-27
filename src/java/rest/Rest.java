@@ -6,19 +6,23 @@
 package rest;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import java.util.ArrayList;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.HashMap;
+import java.util.Scanner;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 
 /**
  * REST Web Service
@@ -47,18 +51,18 @@ public class Rest {
 //            list.add(names.get(i));
 //            list.add("Neverland");
 //            map.put(i+1, list);
-            
-            Player player = new Player("1","James Rodriguez","Neverland");
-            map.put(1, player);
-            player = new Player("2","Thomas Mueller", "Neverland");
-            map.put(2, player);
-            player = new Player("3","Messi", "Neverland");
-            map.put(3, player);
-            player = new Player("4","Neymar", "Neverland");
-            map.put(4, player);
-            player = new Player("5","van Persie", "Neverland");
-            map.put(5, player);
-        }
+
+        Player player = new Player("1", "James Rodriguez", "Neverland");
+        map.put(1, player);
+        player = new Player("2", "Thomas Mueller", "Neverland");
+        map.put(2, player);
+        player = new Player("3", "Messi", "Neverland");
+        map.put(3, player);
+        player = new Player("4", "Neymar", "Neverland");
+        map.put(4, player);
+        player = new Player("5", "van Persie", "Neverland");
+        map.put(5, player);
+    }
 
     @GET
     @Produces("text/plain")
@@ -86,7 +90,6 @@ public class Rest {
 //
 //        return ja.toString();
 //    }
-
 //    @GET
 //    @Produces("application/json")
 //    @Path("/Player/{id}")
@@ -106,33 +109,49 @@ public class Rest {
 //        return jo.toString();
 //
 //    }
-    
     @GET
     @Produces("application/json")
     @Path("/Player/{id}")
     public String getPlayer(@PathParam("id") int id) {
-    Gson gson = new Gson();
-    String player = gson.toJson(map.get(id));
-    return player;
+        if (map.containsKey(id)) {
+            Gson gson = new Gson();
+            String player = gson.toJson(map.get(id));
+            return player;
+        } else {
+            JsonObject jo = new JsonObject();
+            jo.addProperty("errCode", "" + 404);
+            jo.addProperty("errMsg", "No player found with the given ID");
+            throw new WebApplicationException("No Player found with the given ID", Response.Status.NOT_FOUND);
+
+        }
     }
-    
+
     @GET
     @Produces("application/json")
     @Path("AllPlayerNames")
     public String getAllPlayers() {
         Gson gson = new Gson();
-        String allPlayers = gson.toJson(map);
+        String allPlayers = gson.toJson(map.values());
         return allPlayers;
 
     }
-    
-    @POST
-    @Consumes("text/plain")
-    public String putText(String content) {
-        System.out.println(content);
-        return content;
+
+    @GET
+    @Produces("application/json")
+    @Path("Pool")
+    public String getPool() throws MalformedURLException, IOException {
+        URL url = new URL("http://footballpool.dataaccess.eu/data/info.wso/AllPlayerNames/JSON/debug?bSelected=");
+        URLConnection con = url.openConnection();
+        Scanner scan = new Scanner(con.getInputStream());
+        String jsonStr = null;
+        if (scan.hasNext()) {
+            jsonStr = scan.nextLine();
+        }
+        System.out.println(jsonStr);
+        scan.close();
+        return jsonStr;
     }
-    
+
     @PUT
     @Consumes("application/xml")
     public void putXml(String content) {
